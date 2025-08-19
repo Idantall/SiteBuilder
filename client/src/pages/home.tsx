@@ -33,7 +33,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Modal } from "@/components/ui/modal";
-import HeroCardPinpoint from "@/components/HeroCardPinpoint";
+
 import { 
   Select,
   SelectContent,
@@ -692,20 +692,7 @@ export default function Home() {
         </div>
       </section>
       
-      {/* Interactive Bottleneck Analysis */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 reveal">
-            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4 font-space-mono">
-              See How We Identify and Solve Bottlenecks
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Our process visualization shows how we pinpoint workflow inefficiencies and transform them into optimized, automated solutions.
-            </p>
-          </div>
-          <HeroCardPinpoint highlight="middle" />
-        </div>
-      </section>
+      
       
       {/* Features Section */}
       <section id="solutions" className="py-16 px-4 sm:px-6 lg:px-8" ref={solutionsRef}>
