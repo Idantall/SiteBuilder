@@ -1,10 +1,17 @@
 import { useState, useEffect, useRef } from "react";
+import type React from "react";
 import { createPortal } from "react-dom";
 import { 
   Menu,
   X,
   ChevronRight,
-  ChevronDown
+  ChevronDown,
+  Cpu,
+  Languages,
+  ShieldCheck,
+  Clock,
+  AlertTriangle,
+  CheckCircle2
 } from "lucide-react";
 import { 
   SiRedis,
@@ -24,10 +31,6 @@ import fintechImg from "@assets/Finance_1755018204858.png";
 import manufacturingImg from "@assets/Manufacturing_1755018201891.png";
 import saasImg from "@assets/SaaS_1755018201889.png";
 import digitalHealthImg from "@assets/Digital Health_1755018201890.png";
-import viteIcon from "@assets/vite_icon_1755627981796.png";
-import qdrantIcon from "@assets/qdrant_icon_1755627984818.png";
-import pineconeIcon from "@assets/pinecone_icon_1755627987215.png";
-import fastapiIcon from "@assets/fastapi_icon_1755627989650.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -49,6 +52,141 @@ import { useToast } from "@/hooks/use-toast";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import Logo from "@assets/Logo.png";
+
+// Reusable interactive feature card
+import type { LucideIcon } from "lucide-react";
+
+type FeatureCardProps = {
+  Icon: LucideIcon;
+  title: string;
+  description: string;
+};
+
+const FeatureCard = ({ Icon, title, description }: FeatureCardProps) => {
+  const getCardVisual = () => {
+    if (title === "AI code autocomplete") {
+      return (
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-64 h-40 bg-gray-900 rounded-lg p-4 relative">
+            <div className="text-green-400 text-sm font-mono">
+              <div>function autoComplete() {`{`}</div>
+              <div className="ml-4 text-gray-400">// AI suggestion</div>
+              <div className="ml-4">return suggestions;</div>
+              <div>{`}`}</div>
+            </div>
+            
+          </div>
+        </div>
+      );
+    }
+    
+    if (title === "Over 50 languages") {
+      return (
+        <div className="flex flex-wrap gap-3 justify-center items-center w-64 h-40">
+          <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center text-white font-bold">JS</div>
+          <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold">PY</div>
+          <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center text-white font-bold">GO</div>
+          <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center relative z-10">
+            <Icon className="w-8 h-8 text-white" />
+          </div>
+          <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center text-white font-bold">RS</div>
+          <div className="w-12 h-12 bg-indigo-500 rounded-lg flex items-center justify-center text-white font-bold">TS</div>
+          <div className="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center text-white font-bold">C++</div>
+        </div>
+      );
+    }
+    
+    if (title === "Granular permission") {
+      return (
+        <div className="w-64 h-40 bg-white border-2 border-gray-200 rounded-lg p-4 relative">
+          <div className="space-y-2">
+            <div className="flex items-center space-x-2">
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              <span className="text-sm">Read Access ✓</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+              <span className="text-sm">Write Access ⚠️</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+              <span className="text-sm">Admin Access ✗</span>
+            </div>
+          </div>
+          
+        </div>
+      );
+    }
+    
+    if (title === "Pinpoint the bottleneck") {
+      return (
+        <div className="relative w-64 h-40 rounded-lg bg-gradient-to-br from-slate-100 to-slate-50 overflow-hidden">
+          {/* Flow diagram */}
+                                <svg viewBox="0 0 256 160" className="absolute inset-0 text-slate-400" aria-hidden>
+             <defs>
+               <marker id="arrow" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto">
+                 <path d="M0,0 L4,2 L0,4 Z" className="fill-slate-400" />
+               </marker>
+             </defs>
+             <g className="stroke-current" strokeWidth="1" fill="none" strokeLinecap="round">
+               {/* Main flow line */}
+               <path d="M70 80 H126" />
+               {/* Three curved output branches */}
+               <path d="M126 80 Q150 65 180 55" markerEnd="url(#arrow)" />
+               <path d="M126 80 Q150 80 180 80" markerEnd="url(#arrow)" />
+               <path d="M126 80 Q150 95 180 105" markerEnd="url(#arrow)" />
+               {/* Junction point */}
+               <circle cx="126" cy="80" r="2" className="fill-slate-400" />
+             </g>
+           </svg>
+
+           {/* Source box - larger */}
+           <div className="absolute top-14 left-1 w-16 h-10 rounded bg-white/90 border border-slate-200 shadow-sm flex items-center justify-center">
+             <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+           </div>
+
+           {/* Target boxes - larger */}
+           <div className="absolute top-6 right-1 w-16 h-10 rounded bg-white/90 border border-slate-200 shadow-sm flex items-center justify-center">
+             <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+           </div>
+
+           {/* Bottleneck - middle branch highlighted - larger */}
+           <div className="absolute top-14 right-1 w-20 h-10 rounded bg-rose-50 border border-rose-200 ring-2 ring-rose-200/60 animate-pulse shadow-sm flex items-center justify-center">
+             <AlertTriangle className="h-4 w-4 text-rose-600" />
+           </div>
+
+           <div className="absolute top-24 right-1 w-16 h-10 rounded bg-white/90 border border-slate-200 shadow-sm flex items-center justify-center">
+             <Clock className="h-4 w-4 text-amber-500" />
+           </div>
+
+          {/* Performance icon */}
+          
+        </div>
+      );
+    }
+    
+    return (
+      <div className="w-64 h-40 bg-red-100 border-2 border-red-300 rounded-lg flex items-center justify-center">
+        <span className="text-red-600">No visual for: {title}</span>
+      </div>
+    );
+  };
+
+  return (
+    <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-6 w-full max-w-sm h-[480px] flex flex-col justify-between border border-purple-200">
+      {/* Visual area */}
+      <div className="h-80 flex items-center justify-center relative">
+        {getCardVisual()}
+      </div>
+      
+      {/* Content */}
+      <div className="text-center pt-4">
+        <h3 className="text-xl font-semibold text-gray-900 mb-2 font-space-mono">{title}</h3>
+        <p className="text-sm text-gray-600 leading-relaxed">{description}</p>
+      </div>
+    </div>
+  );
+};
 
 const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -415,18 +553,18 @@ export default function Home() {
           <div className="mb-8"></div>
           
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 max-w-4xl mx-auto fade-in-delay-1 leading-tight font-space-mono">
-            Expert Software Development & Automation Solutions
+            AI Agents and Automations for Finance and Manufacturing
           </h1>
           
           <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto fade-in-delay-2 leading-relaxed">
-            82 Labs delivers complex fullstack applications for web and mobile, powered by cutting-edge automation 
-            technologies including n8n and LangGraph. Official n8n lecturers with enterprise-grade expertise.
+            Delivering Software Solutions Including AI Agents, Complex Automations and Fullstack Developement that Speed Work,
+            Prevent Mistakes, and Fit Your Stack. See the Demo.
           </p>
           
           <div className="fade-in-delay-3">
             <Button
               onClick={() => setIsContactModalOpen(true)}
-              className="minimal-button minimal-button-primary text-lg px-8 py-4"
+              className="google-colors-button text-lg px-8 py-4 font-semibold"
               data-testid="button-request-demo-hero"
             >
               Request a demo
@@ -434,12 +572,37 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Features under CTA */}
+      <section id="features" className="px-4 sm:px-6 lg:px-8 py-8" data-testid="features">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-10 reveal">
+            <FeatureCard
+              Icon={AlertTriangle}
+              title="Pinpoint the bottleneck"
+              description="We map your workflows end to end to surface where time is lost, errors creep in, or approvals stall. You get a short gap report with ROI estimates and quick wins."
+            />
+            <FeatureCard
+              Icon={Languages}
+              title="Deploy a tailor-made solution"
+              description="We build the right co-pilot or QA agent for your case. It plugs into your ERP, PLM, CRM, data warehouse, market feeds, and docs. Secure by design with SSO, RBAC, and audit logs."
+            />
+            <FeatureCard
+              Icon={ShieldCheck}
+              title="Implement and maintain"
+              description="We deploy in your VPC or on prem, monitor performance, retrain models, and keep integrations healthy. SLA backed support and clear dashboards."
+            />
+
+          </div>
+        </div>
+      </section>
+
       {/* Technology Sliding Bar - Moved to under hero section */}
       <div className="overflow-hidden">
         <div className="tech-slider">
           <div className="tech-track">
             {/* Render tech items twice for continuous scroll effect */}
-            {[...Array(2)].map((_, repeatIndex) => 
+{[...Array(2)].map((_, repeatIndex) => 
               [
                 { type: 'stack' as const, name: 'n8n', label: 'n8n' },
                 { type: 'stack' as const, name: 'cohere', label: 'Cohere' },
@@ -449,13 +612,13 @@ export default function Home() {
                 { type: 'stack' as const, name: 'python', label: 'Python' },
                 { type: 'stack' as const, name: 'nodejs', label: 'Node.js' },
                 { type: 'stack' as const, name: 'typescript', label: 'TypeScript' },
-                { type: 'png' as const, src: fastapiIcon, alt: 'FastAPI', label: 'FastAPI' },
-                { type: 'png' as const, src: viteIcon, alt: 'Vite', label: 'Vite' },
+                { type: 'svg' as const, src: '/fastapi_icon.svg', alt: 'FastAPI', label: 'FastAPI' },
+                { type: 'svg' as const, src: '/vite_icon.svg', alt: 'Vite', label: 'Vite' },
                 { type: 'stack' as const, name: 'docker', label: 'Docker' },
                 { type: 'stack' as const, name: 'postgresql', label: 'PostgreSQL' },
                 { type: 'stack' as const, name: 'redis', label: 'Redis' },
-                { type: 'png' as const, src: pineconeIcon, alt: 'Pinecone', label: 'Pinecone' },
-                { type: 'png' as const, src: qdrantIcon, alt: 'Qdrant', label: 'Qdrant' },
+                { type: 'svg' as const, src: '/pinecone_icon.svg', alt: 'Pinecone', label: 'Pinecone' },
+                { type: 'svg' as const, src: '/qdrant_icon.svg', alt: 'Qdrant', label: 'Qdrant' },
                 { type: 'stack' as const, name: 'vercel', label: 'Vercel' },
                 { type: 'stack' as const, name: 'tailwindcss', label: 'Tailwind' },
                 { type: 'stack' as const, name: 'nextjs', label: 'Next.js' },
