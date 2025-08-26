@@ -61,6 +61,7 @@ type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export default function Home() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeModel, setActiveModel] = useState("fullstack");
   const [navBackground, setNavBackground] = useState(false);
@@ -830,6 +831,20 @@ export default function Home() {
           </h2>
         </div>
       </section>
+      
+      {/* Footer with Privacy Policy */}
+      <footer className="py-8 px-4 sm:px-6 lg:px-8 bg-gray-50 border-t border-gray-200">
+        <div className="max-w-4xl mx-auto text-center">
+          <button
+            onClick={() => setIsPrivacyModalOpen(true)}
+            className="text-gray-600 hover:text-gray-900 text-sm underline transition-colors duration-200"
+            data-testid="link-privacy-policy"
+          >
+            מדיניות פרטיות | Privacy Policy
+          </button>
+        </div>
+      </footer>
+      
       {/* Contact Modal */}
       <Modal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)}>
         <div className="mb-6">
@@ -1012,6 +1027,115 @@ export default function Home() {
           </div>
         </div>
       </Modal>
+      
+      {/* Privacy Policy Modal */}
+      <Modal isOpen={isPrivacyModalOpen} onClose={() => setIsPrivacyModalOpen(false)}>
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold text-gray-900 mb-2">מדיניות פרטיות | Privacy Policy</h2>
+          <p className="text-gray-600">82Labs - הגנת פרטיות</p>
+        </div>
+        
+        <div className="max-h-96 overflow-y-auto prose prose-sm text-gray-700" dir="rtl">
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">הגנת פרטיות - 82Labs</h3>
+              <p><strong>עודכן לאחרונה:</strong> אוגוסט 2025</p>
+              <p><strong>בהתאם לתיקון 13 לחוק הגנת הפרטיות, התשמ"א-1981</strong></p>
+            </div>
+
+            <div>
+              <h4 className="text-md font-semibold text-gray-900 mb-2">מידע כללי</h4>
+              <p>אנו ב-82Labs מתחייבים לשמור על פרטיותכם ולהגן על המידע האישי שלכם בהתאם לחוק הגנת הפרטיות, התשמ"א-1981 ותיקון 13 שנכנס לתוקף באוגוסט 2025.</p>
+            </div>
+
+            <div>
+              <h4 className="text-md font-semibold text-gray-900 mb-2">איסוף מידע באתר</h4>
+              <p><strong>מידע שאנו אוספים:</strong></p>
+              <ul className="list-disc list-inside space-y-1 mr-4">
+                <li><strong>מידע טכני:</strong> כתובת IP, סוג דפדפן, מערכת הפעלה</li>
+                <li><strong>נתוני שימוש:</strong> דפים שנצפו, זמן ביקור, מקור הגישה לאתר</li>
+                <li><strong>עוגיות טכניות</strong> להבטחת תפקוד תקין של האתר</li>
+                <li><strong>מידע אישי דרך טופס יצירת קשר:</strong> כאשר אתם בוחרים למלא את טופס "Request a Demo", אנו אוספים:
+                  <ul className="list-disc list-inside mr-4 mt-1">
+                    <li>שם מלא</li>
+                    <li>כתובת דוא"ל</li>
+                    <li>פרטי הפרויקט שאתם מעוניינים בו</li>
+                  </ul>
+                </li>
+              </ul>
+              
+              <p><strong>חשוב לדעת:</strong></p>
+              <ul className="list-disc list-inside space-y-1 mr-4">
+                <li>מילוי הטופס הוא וולונטרי לחלוטין</li>
+                <li>המידע נאסף רק כאשר אתם בוחרים למסור אותו בפעולה מודעת</li>
+                <li>ללא מילוי הטופס, ניתן לגלוש באתר בחופשיות</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-md font-semibold text-gray-900 mb-2">מטרת השימוש במידע</h4>
+              <p>המידע נאסף אך ורק למטרות הבאות:</p>
+              <p><strong>מידע טכני ונתוני שימוש:</strong></p>
+              <ul className="list-disc list-inside space-y-1 mr-4">
+                <li>הבטחת תפקוד תקין של האתר</li>
+                <li>שיפור חוויית המשתמש</li>
+                <li>ניתוח סטטיסטי כללי של השימוש באתר</li>
+                <li>אבטחת האתר מפני גישה לא מורשית</li>
+              </ul>
+              
+              <p><strong>מידע מטופס יצירת קשר:</strong></p>
+              <ul className="list-disc list-inside space-y-1 mr-4">
+                <li>יצירת קשר עמכם בנוגע לבקשתכם</li>
+                <li>מתן מידע על שירותי החברה</li>
+                <li>תיאום פגישות והדגמות</li>
+                <li>מעקב אחר הבקשה עד להשלמתה</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-md font-semibold text-gray-900 mb-2">העברת מידע לצדדים שלישיים</h4>
+              <p>איננו מעבירים מידע אישי לצדדים שלישיים, למעט במקרים הבאים:</p>
+              <ul className="list-disc list-inside space-y-1 mr-4">
+                <li>כאשר נדרש על פי חוק או צו שיפוטי</li>
+                <li>לשם הגנה על זכויותינו המשפטיות</li>
+                <li>במקרה חירום לשם הגנת בטיחות הציבור</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-md font-semibold text-gray-900 mb-2">שימוש בעוגיות (Cookies)</h4>
+              <p>האתר משתמש בעוגיות טכניות לצורך תפעול תקין, ובכלל זה לאיסוף נתונים סטטיסטיים על השימוש באתר ולאבטחת מידע. ניתן לחסום עוגיות דרך הגדרות הדפדפן, אך הדבר עלול להשפיע על תפקוד האתר.</p>
+            </div>
+
+            <div>
+              <h4 className="text-md font-semibold text-gray-900 mb-2">זכויותיכם</h4>
+              <p>בהתאם לחוק הגנת הפרטיות, זכאים אתם:</p>
+              <ul className="list-disc list-inside space-y-1 mr-4">
+                <li>לעיין במידע הקיים עליכם במאגרי המידע שלנו</li>
+                <li>לדרוש תיקון מידע שגוי או לא מדויק</li>
+                <li>לדרוש מחיקת מידע במקרים המתאימים על פי חוק</li>
+                <li>לקבל מידע על אופן השימוש במידע שלכם</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-md font-semibold text-gray-900 mb-2">פרטי התקשרות</h4>
+              <p>לכל שאלה או בקשה בנוגע למדיניות פרטיות זו, ניתן לפנות אלינו:</p>
+              <ul className="list-disc list-inside space-y-1 mr-4">
+                <li><strong>דוא"ל:</strong> info@82labs.io</li>
+                <li><strong>כתובת:</strong> WeWork Haifa</li>
+              </ul>
+            </div>
+
+            <div>
+              <p><strong>אתר:</strong> www.82labs.io</p>
+              <p><strong>חברה:</strong> 82Labs</p>
+              <p><strong>תאריך עדכון אחרון:</strong> אוגוסט 2025</p>
+            </div>
+          </div>
+        </div>
+      </Modal>
+      
       <SpeedInsights />
     </div>
   );
