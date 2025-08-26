@@ -79,7 +79,7 @@ Reply directly to this email to respond to ${data.name}.
   `;
 
   return await sendEmail({
-    to: 'idan.t@82labs.io',
+    to: 'elay.g@82labs.io',
     from: 'contact@82labs.com', // This should be a verified sender in SendGrid
     subject: `New Project Inquiry from ${data.name}`,
     text: textContent,
