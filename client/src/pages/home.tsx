@@ -693,8 +693,8 @@ export default function Home() {
         </div>
       </section>
       
-      {/* Interactive Bottleneck Analysis */}
-      <section className="py-16 bg-white">
+      {/* Interactive Bottleneck Analysis - Hidden for now */}
+      <section className="py-16 bg-white hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 reveal">
             <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4 font-space-mono">
